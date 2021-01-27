@@ -30,25 +30,20 @@ services:
       - mysql
 
   mysql:
-    image: mysql/mysql-server
-    build:
-      ./mysql
-    volumes:
-      - ./mysql:/var/lib/mysql
-      - ./mysql/test_work.sql:/var/lib/mysql/test_work.sql
-    ports:
-      - "3306:3306"
+    image: mysql:latest
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: qwerty
       MYSQL_DATABASE: test_work
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    restart: always
     links:
       - mysql:db
     ports:
       - 8765:80
     environment:
-      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_ROOT_PASSWORD: 'qwerty'
     depends_on:
       - mysql

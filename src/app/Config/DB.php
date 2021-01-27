@@ -7,9 +7,9 @@ use mysqli;
 class DB
 {
     private mysqli $connection;
-    private string $host = 'localhost';
+    private string $host = 'mysql';
     private string $user = 'root';
-    private string $pwd = '146j2gcks4zxz';
+    private string $pwd = 'qwerty';
     private string $database = 'test_work';
 
     public function __construct()
