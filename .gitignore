@@ -1,0 +1,4 @@
+/mysql/*
+!/mysql/test_work.sql
+/src/vendor
+/.idea

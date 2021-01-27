@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  apache:
+    image: httpd:2.4
+    volumes:
+      - ./src:/var/www/html
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - php
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - apache
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql/mysql-server
+    build:
+      ./mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql/test_work.sql:/var/lib/mysql/test_work.sql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_DATABASE: test_work
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - 8765:80
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+    depends_on:
+      - mysql

@@ -1,0 +1,21 @@
+{
+  "name": "saleev/test_work",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Artem Saleev",
+      "email": "artem.spark@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "ext-mysqli": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "TestApi\\": "app/"
+    }
+  }
+}
