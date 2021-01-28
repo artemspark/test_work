@@ -52,12 +52,23 @@ class AdvertisementsApi
         //Увеличиваем счетчик просмотров объявления
         if ($res['id']) {
             Advertisement::update($res['id'], ['counter' => ($res['counter'] + 1)]);
+
+            self::response(
+                [
+                    'status' => 'ok',
+                    'data' => [
+                        'text' => $res['text'],
+                        'banner' => $res['banner']
+                    ]
+                ]
+            );
+            return;
         }
 
         self::response(
             [
                 'status' => 'ok',
-                'data' => $res
+                'data' => null
             ]
         );
     }

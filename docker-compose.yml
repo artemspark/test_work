@@ -36,7 +36,6 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
-#    command: bash -c "composer install --optimize-autoloader && tail -f /dev/null"
     env_file:
       - ./config.env
     depends_on:
@@ -45,9 +44,10 @@ services:
   mysql:
     image: mysql:latest
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: qwerty
-      MYSQL_DATABASE: test_work
+    volumes:
+      - ./src/test_work.sql:/docker-entrypoint-initdb.d/test_work.sql
+    env_file:
+      - ./config.env
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -56,7 +56,7 @@ services:
       - mysql:db
     ports:
       - 8765:80
-    environment:
-      MYSQL_ROOT_PASSWORD: 'qwerty'
+    env_file:
+      - ./config.env
     depends_on:
       - mysql

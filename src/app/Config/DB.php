@@ -14,10 +14,10 @@ class DB
 
     public function __construct()
     {
-        $this->database = getenv('DB');
+        $this->database = getenv('MYSQL_DATABASE');
         $this->host = getenv('DB_HOST');
         $this->user = getenv('DB_USER');;
-        $this->pwd = getenv('DB_PASS');
+        $this->pwd = getenv('MYSQL_ROOT_PASSWORD');
 
         $this->connection = new mysqli($this->host, $this->user, $this->pwd, $this->database);
         if (!$this->connection) {
